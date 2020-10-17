@@ -1,0 +1,25 @@
+{
+    "name": "funny-mud-pee/sansanbus",
+    "type": "library",
+    "description": "sansanbus php sdk",
+    "keywords": [
+        "sdk"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+        "name": "funnymudpee",
+        "email": "public@goforhistory.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "alibabacloud/tea": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+        "Sansanbus\\": "src"
+        },
+        "files": []
+    }
+}
