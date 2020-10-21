@@ -3,13 +3,11 @@
 // This file is auto-generated, don't edit it. Thanks.
 namespace sansanbus\wxapp\product;
 
-use sansanbus\base\http\Client as sansanbusbasehttpClient;
+use sansanbus\base\common\Client as sansanbusbasecommonClient;
 
-class Client {
-    protected $_httpClient;
-
-    public function __construct($host, $token){
-        $this->_httpClient = new sansanbusbasehttpClient($host, $token);
+class Client extends sansanbusbasecommonClient {
+    public function __construct($uuid, $authorization, $host){
+        parent::__construct($uuid, $authorization, $host);
     }
 
     /**
@@ -17,11 +15,6 @@ class Client {
      * @return array
      */
     public function generatePlaceOrderItem($param){
-        // var param: map[string]any = {
-        // product_id = 96989,
-        // spec_id = 1885,
-        // order_quantity = 2
-        // };
-        return $this->_httpClient->post("/product/v1/ecshop/place-order-item", $param);
+        return $this->_httpClient->post("/product/v1/ecshop/place-order-item", $this->_requestHeader, $param);
     }
 }
