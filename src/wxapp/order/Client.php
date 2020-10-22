@@ -15,6 +15,15 @@ class Client extends sansanbusbasecommonClient {
      * @param mixed[] $param
      * @return array
      */
+    public function calculation($orderType, $param){
+        return $this->_httpClient->post("/order/v1/" . $orderType . "/calculation", $this->_requestHeader, $param);
+    }
+
+    /**
+     * @param string $orderType
+     * @param mixed[] $param
+     * @return array
+     */
     public function create($orderType, $param){
         return $this->_httpClient->post("/order/v1/" . $orderType . "", $this->_requestHeader, $param);
     }
