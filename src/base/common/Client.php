@@ -11,15 +11,23 @@ class Client {
 
     protected $_requestHeader;
 
-    public function __construct($uuid, $authorization, $host){
+    public function __construct($authorization, $host){
         if (Utils::empty_($host)) {
             $host = "127.0.0.1";
         }
         $this->_httpClient = new sansanbusbasehttpClient($host);
         $header = [
-            "authorization" => $authorization,
-            "uuid" => $uuid
+            "authorization" => $authorization
         ];
         $this->_requestHeader = $header;
+    }
+
+    /**
+     * @param string $uuid
+     * @return bool
+     */
+    public function setUuid($uuid){
+        @$_requestHeader["uuid"] = $uuid;
+        return true;
     }
 }

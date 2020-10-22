@@ -6,8 +6,8 @@ namespace sansanbus\wxapp\order;
 use sansanbus\base\common\Client as sansanbusbasecommonClient;
 
 class Client extends sansanbusbasecommonClient {
-    public function __construct($uuid, $authorization, $host){
-        parent::__construct($uuid, $authorization, $host);
+    public function __construct($authorization, $host){
+        parent::__construct($authorization, $host);
     }
 
     /**
