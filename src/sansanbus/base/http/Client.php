@@ -15,8 +15,14 @@ use sansanbus\base\http\Models\RequestOptional;
 class Client {
     protected $_endpoint;
 
-    public function __construct($endpoint){
+    protected $_authorization;
+
+    protected $_uuid;
+
+    public function __construct($endpoint, $headers){
         $this->_endpoint = $endpoint;
+        $this->_authorization = @$headers["authorization"];
+        $this->_uuid = @$headers["uuid"];
     }
 
     /**
@@ -60,8 +66,8 @@ class Client {
                 $_request->headers = [
                     "host" => $this->_endpoint,
                     "content-type" => "application/json",
-                    "authorization" => $optional->header["authorization"],
-                    "uuid" => $optional->header["uuid"]
+                    "authorization" => $this->_authorization,
+                    "uuid" => $this->_uuid
                 ];
                 $_request->query = $optional->query;
                 $_request->body = $optional->body;
@@ -93,13 +99,11 @@ class Client {
 
     /**
      * @param string $path
-     * @param string[] $header
      * @param string[] $query
      * @return array
      */
-    public function get($path, $header, $query){
+    public function get($path, $query){
         $optional = new RequestOptional([
-            "header" => $header,
             "query" => $query
         ]);
         return $this->request("GET", $path, $optional);
@@ -107,14 +111,12 @@ class Client {
 
     /**
      * @param string $path
-     * @param string[] $header
      * @param mixed[] $formData
      * @return array
      */
-    public function post($path, $header, $formData){
+    public function post($path, $formData){
         $body = Utils::toJSONString($formData);
         $optional = new RequestOptional([
-            "header" => $header,
             "body" => $body
         ]);
         return $this->request("POST", $path, $optional);

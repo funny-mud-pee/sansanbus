@@ -6,9 +6,6 @@ namespace sansanbus\wxapp\order;
 use sansanbus\base\common\Client as sansanbusbasecommonClient;
 
 class Client extends sansanbusbasecommonClient {
-    public function __construct($authorization, $host){
-        parent::__construct($authorization, $host);
-    }
 
     /**
      * @param string $orderType
@@ -16,7 +13,7 @@ class Client extends sansanbusbasecommonClient {
      * @return array
      */
     public function calculation($orderType, $param){
-        return $this->_httpClient->post("/order/v1/" . $orderType . "/calculation", $this->_requestHeader, $param);
+        return $this->_httpClient->post("/order/v1/" . $orderType . "/calculation", $param);
     }
 
     /**
@@ -25,6 +22,6 @@ class Client extends sansanbusbasecommonClient {
      * @return array
      */
     public function create($orderType, $param){
-        return $this->_httpClient->post("/order/v1/" . $orderType . "", $this->_requestHeader, $param);
+        return $this->_httpClient->post("/order/v1/" . $orderType . "", $param);
     }
 }
