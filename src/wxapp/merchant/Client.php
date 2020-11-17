@@ -1,7 +1,7 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-namespace sansanbus\wxapp\product;
+namespace sansanbus\wxapp\merchant;
 
 use sansanbus\base\common\Client as sansanbusbasecommonClient;
 
