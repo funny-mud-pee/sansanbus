@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "alibabacloud/tea": "^3.1"
+        "alibabacloud/tea": "^3.1",
+        "alibabacloud/tea-utils": "^0.2"
     },
     "autoload": {
         "psr-4": {
