@@ -9,7 +9,7 @@ class Client extends sansanbusbasecommonClient {
 
     /**
      * @param mixed[] $param
-     * @return array
+     * @return any
      */
     public function upload($param){
         return $this->_httpClient->post("/admin.php/api/v1/material/files", $param);

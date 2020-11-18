@@ -29,7 +29,7 @@ class Client {
      * @param string $method
      * @param string $path
      * @param RequestOptional $optionals
-     * @return array
+     * @return any
      * @throws TeaError
      * @throws Exception
      * @throws TeaUnableRetryError
@@ -77,15 +77,14 @@ class Client {
                 $_request->body = $optionals->body;
                 $_lastRequest = $_request;
                 $_response= Tea::send($_request, $_runtime);
-                // 描述返回相关信息
+                $data = Utils::assertAsMap(Utils::readAsJSON($_response->body));
                 if (!Utils::equalNumber($_response->statusCode, 200)) {
                     throw new TeaError([
-                        "message" => "" . $_response->statusMessage . "",
-                        "code" => "" . (string) ($_response->statusCode) . ""
+                        "message" => @$data["msg"],
+                        "code" => @$data["code"]
                     ]);
                 }
-                $result = Utils::assertAsMap(Utils::readAsJSON($_response->body));
-                return $result;
+                return @$data["result"];
             }
             catch (Exception $e) {
                 if (!($e instanceof TeaError)) {
@@ -104,7 +103,7 @@ class Client {
     /**
      * @param string $path
      * @param string[] $query
-     * @return array
+     * @return any
      */
     public function get($path, $query){
         $body = "";
@@ -118,7 +117,7 @@ class Client {
     /**
      * @param string $path
      * @param mixed[] $formData
-     * @return array
+     * @return any
      */
     public function post($path, $formData){
         $query = [];

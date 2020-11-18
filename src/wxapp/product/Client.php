@@ -9,7 +9,7 @@ class Client extends sansanbusbasecommonClient {
 
     /**
      * @param mixed[] $param
-     * @return array
+     * @return any
      */
     public function generatePlaceOrderItem($param){
         return $this->_httpClient->post("/product/v1/ecshop/place-order-item", $param);

@@ -8,10 +8,10 @@ use sansanbus\base\common\Client as sansanbusbasecommonClient;
 class Client extends sansanbusbasecommonClient {
 
     /**
-     * @param mixed[] $param
-     * @return array
+     * @param string[] $param
+     * @return any
      */
     public function merchantInfo($param){
-        return $this->_httpClient->post("/malls/v1/merchant/info", $param);
+        return $this->_httpClient->get("/malls/v1/merchant/info", $param);
     }
 }
