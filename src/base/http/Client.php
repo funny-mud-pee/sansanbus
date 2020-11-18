@@ -48,8 +48,10 @@ class Client {
                 "maxAttempts" => 3
             ],
             "ignoreSSL" => true,
-            "backoffPolicy" => "yes",
-            "backoffPeriod" => 1
+            "backoff" => [
+                "policy" => "yes",
+                "period" => 1
+            ]
         ];
         $_lastRequest = null;
         $_lastException = null;
