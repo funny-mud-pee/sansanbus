@@ -47,7 +47,9 @@ class Client {
                 "retryable" => true,
                 "maxAttempts" => 3
             ],
-            "ignoreSSL" => true
+            "ignoreSSL" => true,
+            "backoffPolicy" => "yes",
+            "backoffPeriod" => 1
         ];
         $_lastRequest = null;
         $_lastException = null;
