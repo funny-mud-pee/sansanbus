@@ -13,33 +13,29 @@ use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
 use sansanbus\base\http\Models\RequestOptional;
 
 class Client {
-    protected $_optionals;
+    protected $_endpoint;
+
+    protected $_uuid;
+
+    protected $_authorization;
 
     public function __construct($endpoint, $headers){
-        $header = [
-            "host" => $endpoint,
-            "content-type" => "application/json",
-            "authorization" => @$headers["authorization"],
-            "uuid" => @$headers["uuid"]
-        ];
-        $query = [];
-        $body = "";
-        $this->_optionals = new RequestOptional([
-            "header" => $header,
-            "query" => $query,
-            "body" => $body
-        ]);
+        $this->_endpoint = $endpoint;
+        $this->_uuid = @$headers["uuid"];
+        $this->_authorization = @$headers["authorization"];
     }
 
     /**
      * @param string $method
      * @param string $path
+     * @param RequestOptional $optionals
      * @return array
      * @throws TeaError
      * @throws Exception
      * @throws TeaUnableRetryError
      */
-    public function request($method, $path){
+    public function request($method, $path, $optionals){
+        $optionals->validate();
         $_runtime = [
             // 描述运行时参数
             "timeouted" => "retry",
@@ -71,9 +67,14 @@ class Client {
                 $_request->protocol = "http";
                 $_request->method = $method;
                 $_request->pathname = $path;
-                $_request->headers = $_optionals->header;
-                $_request->query = $_optionals->query;
-                $_request->body = $_optionals->body;
+                $_request->headers = [
+                    "host" => $this->_endpoint,
+                    "content-type" => "application/json",
+                    "authorization" => $this->_authorization,
+                    "uuid" => $this->_uuid
+                ];
+                $_request->query = $optionals->query;
+                $_request->body = $optionals->body;
                 $_lastRequest = $_request;
                 $_response= Tea::send($_request, $_runtime);
                 // 描述返回相关信息
@@ -106,8 +107,12 @@ class Client {
      * @return array
      */
     public function get($path, $query){
-        $_optionals->query = $query;
-        return $this->request("GET", $path);
+        $body = "";
+        $optionals = new RequestOptional([
+            "query" => $query,
+            "body" => $body
+        ]);
+        return $this->request("GET", $path, $optionals);
     }
 
     /**
@@ -116,8 +121,12 @@ class Client {
      * @return array
      */
     public function post($path, $formData){
+        $query = [];
         $body = Utils::toJSONString($formData);
-        $_optionals->body = $body;
-        return $this->request("POST", $path);
+        $optionals = new RequestOptional([
+            "query" => $query,
+            "body" => $body
+        ]);
+        return $this->request("POST", $path, $optionals);
     }
 }
