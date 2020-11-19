@@ -37,7 +37,6 @@ class Client {
     public function request($method, $path, $optionals){
         $optionals->validate();
         $_runtime = [
-            // 描述运行时参数
             "timeouted" => "retry",
             "retry" => [
                 "retryable" => true,
@@ -63,7 +62,6 @@ class Client {
             $_retryTimes = $_retryTimes + 1;
             try {
                 $_request = new Request();
-                // 描述请求相关信息
                 $_request->protocol = "http";
                 $_request->method = $method;
                 $_request->pathname = $path;
