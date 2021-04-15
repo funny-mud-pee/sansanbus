@@ -12,6 +12,6 @@ class Client extends sansanbusbasecommonClient {
      * @return any
      */
     public function userCodeRender($param){
-        return $this->_httpClient->get("/card/v1/coupon/user/code/render", $param);
+        return $this->_httpClient->post("/card/v1/coupon/user/code/render", $param);
     }
 }
