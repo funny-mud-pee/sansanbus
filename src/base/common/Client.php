@@ -3,8 +3,8 @@
 // This file is auto-generated, don't edit it. Thanks.
 namespace sansanbus\base\common;
 
-use sansanbus\base\http\Client as sansanbusbasehttpClient;
 use AlibabaCloud\Tea\Utils\Utils;
+use sansanbus\base\http\Client as sansanbusbasehttpClient;
 
 class Client {
     protected $_httpClient;
