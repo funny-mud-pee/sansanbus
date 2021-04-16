@@ -62,7 +62,7 @@ class Client {
             $_retryTimes = $_retryTimes + 1;
             try {
                 $_request = new Request();
-                $_request->protocol = "http";
+                $_request->protocol = "https";
                 $_request->method = $method;
                 $_request->pathname = $path;
                 $_request->headers = [

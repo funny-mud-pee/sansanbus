@@ -8,11 +8,14 @@ use sansanbus\base\common\Client as sansanbusbasecommonClient;
 class Client extends sansanbusbasecommonClient {
 
     /**
-     * @param string[] $param
+     * @param string $code
      * @return any
      */
-    public function codeDetail($param){
-        return $this->_httpClient->get("/card/v1/coupon/code/detail", $param);
+    public function codeDetail($code){
+        $query = [
+            "code" => $code
+        ];
+        return $this->_httpClient->get("/card/v1/coupon/code/detail", $query);
     }
 
     /**
