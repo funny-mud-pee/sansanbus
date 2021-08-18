@@ -14,4 +14,12 @@ class Client extends sansanbusbasecommonClient {
     public function generatePlaceOrderItem($param){
         return $this->_httpClient->post("/product/v1/ecshop/place-order-item", $param);
     }
+
+    /**
+     * @param string[] $param
+     * @return any
+     */
+    public function getUserLevelPrice($param){
+        return $this->_httpClient->get("/product/v1/ecshop/user-level-price", $param);
+    }
 }
